@@ -50,6 +50,7 @@
 		font-weight: 300;
 		font-size: 1.2rem;
 		transition: 0.2s ease-in-out;
+		cursor: pointer;
 	}
 
 	.barItem span:nth-child(1) {

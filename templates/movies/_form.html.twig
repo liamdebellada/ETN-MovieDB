@@ -1,4 +1,7 @@
+<div class="formContainer">
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
+    <a class="btn danger" href="{{ path('movies_index') }}">back to list</a>
 {{ form_end(form) }}
+</div>

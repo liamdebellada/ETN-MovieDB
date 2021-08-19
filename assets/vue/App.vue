@@ -7,11 +7,10 @@
 			<div class="titleContainer">
 				<div>
 					<span class="titleText primaryTitle">All Movies</span>
-					<span class="titleText primaryTitle">testaksdjfklajsdf</span>
 				</div>
 				<div class="widgetContainer">
 					<Search/>
-					<PrimaryButton/>
+					<PrimaryButton location="/new"/>
 				</div>
 			</div>
 			<div>
@@ -20,9 +19,7 @@
 					<span class="headingSub">14 movies</span>
 				</div>
 				<div class="cardListContainer">
-					<RecentCard/>
-					<RecentCard/>
-					<RecentCard/>
+					<RecentCard :item_data="item" v-for="(item, index) in overview.slice(0, 3)" :key="index"/>
 				</div>
 			</div>
 			<div class="dataContainer">
@@ -39,11 +36,11 @@
 							<th class="smallHeading">Released</th>
 						</thead>
 						<tbody>
-							<tr v-for="(item, index) in test" :key="item" v-bind:class="{evenRow: index % 2 == 1}">
-								<td>Captain Marvel</td>
-								<td>Captain Marvel</td>
-								<td>Captain Marvel</td>
-								<td>Captain Marvel</td>
+							<tr v-on:click="() => test(item.id)" v-for="(item, index) in overview" :key="index" v-bind:class="{evenRow: index % 2 == 1}">
+								<td>{{item.title}}</td>
+								<td>{{item.description}}</td>
+								<td>{{item.genre}}</td>
+								<td>{{item.releaseDate}}</td>
 							</tr>
 						</tbody>
 					</table>
@@ -141,6 +138,18 @@
 .dataTable tr {
 	background-color: #272525;
 	height: 2rem;
+	cursor: pointer;
+	transition: ease-in-out 0.2s
+}
+
+.dataTable tr:hover {
+	background: #45AAE0 !important;
+}
+
+.dataTable tr td {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .evenRow {
@@ -158,18 +167,66 @@
 	display: flex;
 	flex-direction: column;
 }
+
+@media only screen and (max-width: 1000px) {
+	.layout {
+		grid-template-columns: 100px 1fr;
+	}
+
+	.barItem span:nth-child(1) {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	.barItem span:nth-child(2) {
+		display: none;
+	}
+
+	.barItem {
+		justify-content: center;
+	}
+
+	.titleText:nth-child(2) {
+		display: none;
+	}
+
+	.titleContainer {
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.main {
+		grid-template-rows: 120px 0.4fr 1fr;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.cardListContainer {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.cardListContainer div {
+		margin: 0 !important;
+		margin-top: 1rem !important;
+	}
+}
 </style>
 
 <script>
 export default {
 	data() {
 		return {
-			"test" : [1,2],
+			"overview" : []
+		}
+	},
+	methods: {
+		test(location) {
+			window.location.href = location;
 		}
 	},
 	mounted() {
-		console.log("mounted")
-		// fetch('/allmovies').then(data => data.json()).then(data => console.log(data))
+		fetch('/allmovies').then(data => data.json()).then(data => this.overview = data)
 	}
 }
 

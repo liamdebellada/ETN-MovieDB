@@ -3,9 +3,10 @@
 {% block title %}New Movies{% endblock %}
 
 {% block body %}
-    <h1>Create new Movies</h1>
+<div class="formHeadingContainer">
+    <h1 class="formTitle">Add New Movie</h1>
+</div>
 
     {{ include('movies/_form.html.twig') }}
 
-    <a href="{{ path('movies_index') }}">back to list</a>
 {% endblock %}

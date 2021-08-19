@@ -1,11 +1,11 @@
 <template>
 	<div class="recentCardParent">
 		<div class="recentCardInfo">
-			<span>Action, Adventure, lole 123</span>
-			<span>Captain Marvel</span>
+			<span>{{item_data.genre}}</span>
+			<span>{{item_data.title}}</span>
 		</div>
 		<div class="recentMenuContainer">
-			<span class="material-icons">menu</span>
+			<a :href="item_data.id" class="material-icons nostyle">menu</a>
 		</div>
 	</div>
 </template>
@@ -44,4 +44,15 @@
 	justify-content: center;
 	padding-top: 1rem
 }
+
+.nostyle {
+	text-decoration: none;
+	color: white;
+}
 </style>
+
+<script>
+	export default {
+		props: ['item_data']
+	}
+</script>

@@ -3,36 +3,40 @@
 {% block title %}Movies{% endblock %}
 
 {% block body %}
-    <h1>Movies</h1>
+    <div class="formHeadingContainer">
+        <h1 class="formTitle">{{movie.title}}</h1>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ movie.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ movie.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ movie.description }}</td>
-            </tr>
-            <tr>
-                <th>Genre</th>
-                <td>{{ movie.genre }}</td>
-            </tr>
-            <tr>
-                <th>Release_date</th>
-                <td>{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="itemOverviewContainer">
+        <div class="itemProperty">
+            <span>Id</span>
+            <span>{{movie.id}}</span>
+        </div>
 
-    <a href="{{ path('movies_index') }}">back to list</a>
+        <div class="itemProperty">
+            <span>Title</span>
+            <span>{{movie.title}}</span>
+        </div>
 
-    <a href="{{ path('movies_edit', {'id': movie.id}) }}">edit</a>
+        <div class="itemProperty">
+            <span>Description</span>
+            <span>{{movie.description}}</span>
+        </div>
 
-    {{ include('movies/_delete_form.html.twig') }}
+        <div class="itemProperty">
+            <span>Genre</span>
+            <span>{{movie.genre}}</span>
+        </div>
+
+        <div class="itemProperty">
+            <span>releaseDate</span>
+            <span>{{ movie.releaseDate ? movie.releaseDate|date('Y-m-d') : '' }}</span>
+        </div>
+    </div>
+
+    <div class="optionsContainer">
+        <a class="btn" href="{{ path('movies_edit', {'id': movie.id}) }}">edit</a>
+        <a class="btn danger" href="{{ path('movies_index') }}">back to list</a>
+        {{ include('movies/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
